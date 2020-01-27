@@ -5,6 +5,7 @@ extends KinematicBody2D
 # var b = "text"
 var velocity = Vector2(0,0)
 var MAX_SPEED = 400
+var ACCELERATION = 300
 
 var bullet = preload("res://Bullet.tscn")
 
@@ -23,7 +24,7 @@ func shoot():
 func _process(delta):
 	
 	if Input.is_action_pressed("ui_up"):
-		velocity += Vector2(0,300).rotated(rotation) * delta
+		velocity += Vector2(0,ACCELERATION).rotated(rotation) * delta
 		if velocity.length() > MAX_SPEED:
 			velocity = velocity.normalized() * MAX_SPEED
 	else:
