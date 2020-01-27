@@ -15,6 +15,7 @@ func save():
 	file.open("res://saveGame.json", File.WRITE)
 	file.store_line(to_json(saveDictionary))
 
+#Load a settings file
 func loadSettings():
 	var settingsFile = File.new()
 	if not settingsFile.file_exists("res://saveGame.json"):
