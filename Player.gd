@@ -1,12 +1,11 @@
 extends KinematicBody2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+#Class variables
 var velocity = Vector2(0,0)
 var MAX_SPEED = 400
 var ACCELERATION = 300
 
+#The object that we will be using as bullets
 var bullet = preload("res://Bullet.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -23,18 +22,28 @@ func shoot():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+	#Move Forward in direction ship is facing
 	if Input.is_action_pressed("ui_up"):
 		velocity += Vector2(0,ACCELERATION).rotated(rotation) * delta
 		if velocity.length() > MAX_SPEED:
+			#Ensure ship is slower than max speed
 			velocity = velocity.normalized() * MAX_SPEED
 	else:
+		#Deceleration
 		velocity *= 0.995
+	
+	#Turn Right
 	if Input.is_action_pressed("ui_right"):
 		rotation+=5 * delta
+	
+	#Turn Left
 	if Input.is_action_pressed("ui_left"):
 		rotation-=5 * delta
+	
+	#Shoot a bullet
 	if Input.is_action_just_pressed("gameplay_shoot"):
 		shoot()
+	
+	#Move ship each frame
 	position+=velocity * delta
 	pass
