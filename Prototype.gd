@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var player = $Player
+var bullets = []
 
 #Save player to function
 func save():

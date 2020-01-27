@@ -18,6 +18,7 @@ func shoot():
 	var b = bullet.instance()
 	b.velocity = Vector2(0,500).rotated(rotation)
 	b.position = position
+	get_parent().bullets.push_back(b)
 	get_parent().add_child(b)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,7 +34,7 @@ func _process(delta):
 		rotation+=5 * delta
 	if Input.is_action_pressed("ui_left"):
 		rotation-=5 * delta
-	if Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_just_pressed("gameplay_shoot"):
 		shoot()
 	position+=velocity * delta
 	pass
