@@ -15,7 +15,7 @@ func _ready():
 #Shoot a bullet
 func shoot():
 	var b = bullet.instance()
-	b.velocity = Vector2(0,500).rotated(rotation)
+	b.velocity = Vector2(0,-500).rotated(rotation)
 	b.position = position
 	get_parent().bullets.push_back(b)
 	get_parent().add_child(b)
@@ -24,7 +24,7 @@ func shoot():
 func _process(delta):
 	#Move Forward in direction ship is facing
 	if Input.is_action_pressed("ui_up"):
-		velocity += Vector2(0,ACCELERATION).rotated(rotation) * delta
+		velocity += Vector2(0,-ACCELERATION).rotated(rotation) * delta
 		if velocity.length() > MAX_SPEED:
 			#Ensure ship is slower than max speed
 			velocity = velocity.normalized() * MAX_SPEED
