@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Deep Space"
-run/main_scene="res://Prototype.tscn"
+run/main_scene="res://GameManager.tscn"
 config/icon="res://icon.png"
 
 [input]
