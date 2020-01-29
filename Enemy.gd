@@ -8,18 +8,25 @@ enum AI_STATE { IDLE, WANDERING, PURSUING, EVADING, RELOADING };
 
 var state = AI_STATE.IDLE;
 
+var distance_to_circle = 1.0
+
+# function to process idle behaviour
 func _idle():
-	pass
+	state = AI_STATE.WANDERING
 	
+# function to process wander behaviour
 func _wander():
 	pass
 
+# function to process pursue behaviour
 func _pursue():
 	pass
 
+# function to process evade behaviour
 func _evade():
 	pass
 	
+# function to process reload behaviour
 func _reload():
 	pass
 
