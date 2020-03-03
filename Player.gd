@@ -45,5 +45,6 @@ func _process(delta):
 		shoot()
 	
 	#Move ship each frame
-	position+=velocity * delta
+	velocity = move_and_slide(velocity, Vector2(0,0))
+	#position+=velocity * delta
 	pass

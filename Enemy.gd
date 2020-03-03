@@ -56,4 +56,6 @@ func _process(delta):
 		_evade()
 	elif (state == AI_STATE.RELOADING):
 		_reload()
-	position += velocity * delta
+		
+	velocity = move_and_slide(velocity)
+	#position += velocity * delta

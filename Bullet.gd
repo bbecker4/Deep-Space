@@ -11,3 +11,4 @@ func _ready():
 func _process(delta):
 	position += velocity * delta
 	pass
+
