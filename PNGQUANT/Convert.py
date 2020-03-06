@@ -1,23 +1,32 @@
 import os
-filelist=os.listdir('PNG')
-for fichier in filelist[:]: # filelist[:] makes a copy of filelist.
-    if not(fichier.endswith(".png")):
-        filelist.remove(fichier)
-
 import subprocess
-for file in filelist:
-    print("pngquant converting: " + str(file))
+
+def get_png_files():
+    filelist=os.listdir('PNG')
+    for fichier in filelist[:]: # filelist[:] makes a copy of filelist.
+        if not(fichier.endswith(".png")):
+            filelist.remove(fichier)
+    return filelist
+
+def pngquant_args(file):
     outFile = "\"./PNGQUANT/" + file + "\""
-    FNULL = open(os.devnull, 'w')    #use this if you want to suppress output to stdout from the subprocess
     args = "pngquant.exe --quality=65-80 \"PNG/" + file + "\" -o " + outFile
-    subprocess.call(args, stdout=FNULL, stderr=FNULL, shell=False)
+    return args
 
-
-for file in filelist:
-    print("OptiPNG converting: " + str(file))
-    FNULL = open(os.devnull, 'w')    #use this if you want to suppress output to stdout from the subprocess
+def optipng_args(file):
     args = "optipng.exe -o1 -dir OptiPNG \"PNG/" + file + "\""
-    subprocess.call(args, stdout=FNULL, stderr=FNULL, shell=False)
+    return args
+
+def proccess_files(conversion_name, conversion_function):
+    filelist = get_png_files()
+    for file in filelist:
+        print(conversion_name + " converting: " + str(file))
+        FNULL = open(os.devnull, 'w')
+        subprocess.call(conversion_function(file), stdout=FNULL, stderr=FNULL, shell=False)
+
+
+proccess_files("pngquant", pngquant_args)
+proccess_files("optipng", optipng_args)
 
 print("")
 print("Done!")
