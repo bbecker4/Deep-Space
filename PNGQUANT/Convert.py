@@ -2,11 +2,24 @@ import os
 import subprocess
 
 def get_png_files():
+
+    f = open("processed.txt", "r")
+    processed = []
+    for line in f:
+        processed.append(line.strip())
+
     filelist=os.listdir('PNG')
-    for fichier in filelist[:]: # filelist[:] makes a copy of filelist.
-        if not(fichier.endswith(".png")):
-            filelist.remove(fichier)
+    for file in filelist[:]:
+        if not(file.endswith(".png")):
+            filelist.remove(file)
+        elif file in processed:
+            filelist.remove(file)
     return filelist
+
+def write_files_to_processed(files):
+    f = open("processed.txt", "a")
+    for file in files:
+        f.write(file + "\n")
 
 def pngquant_args(file):
     outFile = "\"./PNGQUANT/" + file + "\""
@@ -17,16 +30,18 @@ def optipng_args(file):
     args = "optipng.exe -o1 -dir OptiPNG \"PNG/" + file + "\""
     return args
 
-def proccess_files(conversion_name, conversion_function):
-    filelist = get_png_files()
-    for file in filelist:
+def proccess_files(conversion_name, conversion_function, files):
+    for file in files:
         print(conversion_name + " converting: " + str(file))
         FNULL = open(os.devnull, 'w')
         subprocess.call(conversion_function(file), stdout=FNULL, stderr=FNULL, shell=False)
 
 
-proccess_files("pngquant", pngquant_args)
-proccess_files("optipng", optipng_args)
+
+files = get_png_files()
+proccess_files("pngquant", pngquant_args, files)
+proccess_files("optipng", optipng_args, files)
+write_files_to_processed(files)
 
 print("")
 print("Done!")
