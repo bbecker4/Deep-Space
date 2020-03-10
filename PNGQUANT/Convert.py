@@ -30,6 +30,10 @@ def optipng_args(file):
     args = "optipng.exe -o1 -dir OptiPNG \"PNG/" + file + "\""
     return args
 
+def pvrtextool_args(file):
+    args = "PVRTexToolCLI.exe -i \"PNG/" + file + "\"" + " -o \"PVR/" + file[:file.index('.')] + ".pvr\" -f PVRTC1_2 -q pvrtcfast"
+    return args
+
 def proccess_files(conversion_name, conversion_function, files):
     for file in files:
         print(conversion_name + " converting: " + str(file))
@@ -41,6 +45,7 @@ def proccess_files(conversion_name, conversion_function, files):
 files = get_png_files()
 proccess_files("pngquant", pngquant_args, files)
 proccess_files("optipng", optipng_args, files)
+proccess_files("pvrtextool", pvrtextool_args, files)
 write_files_to_processed(files)
 
 print("")
